@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<f:view>
 		<h:form>
 			x: <h:inputText value="#{calculBean.x}"></h:inputText>
