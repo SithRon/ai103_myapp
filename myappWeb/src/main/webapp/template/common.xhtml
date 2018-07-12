@@ -16,14 +16,13 @@
 
 <div id="header">
     <ui:insert name="header">
-		<hr/>
     	<ui:include src="header.xhtml"/>
     </ui:insert>
 </div>
 
 
 <div id="content">
-  <ui:insert name="content">
+  <ui:insert name="content" class="container">
     	Content area.  See comments below this line in the source.
     	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
 	  	<!-- <div> -->
@@ -33,7 +32,7 @@
 </div>
 
 <div id="footer">
-  <ui:insert name="footer">
+  <ui:insert name="footer" class="footer">
   		<hr/>
 		<ui:include src="footer.xhtml"/>
   </ui:insert>

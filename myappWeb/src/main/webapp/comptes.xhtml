@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/template/common.xhtml">
+	<ui:define name="title">Compte bancaire</ui:define>
+	<br />
+	<ui:define name="content">
+
+		<h:form>
+			<h:dataTable value="#{compteBean.comptes}" var="cpt" border="2">
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>LIBELLE</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{cpt.libelle}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>NUMERO</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{cpt.numero}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>SOLDE</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{cpt.solde}" />
+				</h:column>
+			</h:dataTable>
+			<a href="virement.jsf">Effectuer un virement</a>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
