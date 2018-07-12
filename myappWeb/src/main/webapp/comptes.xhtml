@@ -11,6 +11,15 @@
 	<br />
 	<ui:define name="content">
 
+		<f:metadata>
+			<!-- pour recopier dans #{compteBean.numClient} la valeur du paramètre numClient 
+		passé en fin d'URL en mode get : href="comptes.jsf?numClient=2" -->
+			<f:viewParam name="numClient" value="#{compteBean.numClient}" />
+			<!-- demander à appeler la méthode d'initialisation initComptes() après la mise à jour de #{compteBean.numClient}
+		et avant l'affichage de la page -->
+			<f:event type="preRenderView" listener="#{compteBean.initComptes}" />
+		</f:metadata>
+
 		<h:form>
 			<h:dataTable value="#{compteBean.comptes}" var="cpt" border="2">
 				<h:column>
@@ -23,7 +32,11 @@
 					<f:facet name="header">
 						<f:verbatim>NUMERO</f:verbatim>
 					</f:facet>
-					<h:outputText value="#{cpt.numero}" />
+					<h:commandLink actionListener="#{compteBean.onSelectCompte}" immediate="false">
+						
+						<f:setPropertyActionListener value="#{cpt.numero}" target="#{compteBean.selectedNumCompte}"/>
+						<h:outputText value="#{cpt.numero}"/>
+					</h:commandLink>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -32,6 +45,33 @@
 					<h:outputText value="#{cpt.solde}" />
 				</h:column>
 			</h:dataTable>
+			
+			<hr />
+			<h4>Dernières opérations du compte sélectionné</h4>
+			<h:dataTable id="idTabOp" var="op" value="#{compteBean.operations}"
+			border="2">
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>date</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{op.date}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>montant</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{op.montant}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<f:verbatim>libelle</f:verbatim>
+					</f:facet>
+					<h:outputText value="#{op.libelle}" />
+				</h:column>
+			</h:dataTable>
+			<hr />
 			<a href="virement.jsf">Effectuer un virement</a>
 		</h:form>
 	</ui:define>

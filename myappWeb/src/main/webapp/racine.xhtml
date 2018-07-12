@@ -4,19 +4,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/common.xhtml">
 	<ui:define name="title">Calcul de racine carré</ui:define>
 	<ui:define name="content">
-		<h:messages class="erreur"/>
-		<!-- h:messages affiche des messages d'erreur si ils existent -->
-		<h:form>
-			x: <h:inputText value="#{calculBean.x}"></h:inputText>
-			<h:commandButton value="calculer racine carrée"
-				action="#{calculBean.CalculerRacine}"></h:commandButton>
-		</h:form>
-		resultat : <h:outputText value="#{calculBean.resultat}"></h:outputText>
+	<h:form>
+		<p:tabView>
+			<p:tab title="racine carrée">
+				<h:messages class="erreur"/>
+				<!-- h:messages affiche des messages d'erreur si ils existent -->
+				<h:form>
+					x: <h:inputText value="#{calculBean.x}"></h:inputText>
+					<h:commandButton value="calculer racine carrée"
+						action="#{calculBean.CalculerRacine}"></h:commandButton>
+				</h:form>
+				resultat : <h:outputText value="#{calculBean.resultat}"></h:outputText>
+			</p:tab>
+			<p:tab title="onglet 2">
+				onglet de boeuf
+			</p:tab>
+	</p:tabView>
+	</h:form>
 	</ui:define>
 </ui:composition>
 </html>

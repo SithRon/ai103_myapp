@@ -1,11 +1,15 @@
 package fr.afcepf.ai103.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ComponentSystemEvent;
 
 import fr.afcepf.ai103.data.Compte;
+import fr.afcepf.ai103.data.Operations;
 import fr.afcepf.ai103.service.ServiceCompte;
 
 @ManagedBean
@@ -13,7 +17,7 @@ import fr.afcepf.ai103.service.ServiceCompte;
 
 public class CompteBean {
 
-	private Long numClient = 1L;
+	private Long numClient = null;
 
 	private ServiceCompte serviCompte = new ServiceCompte();
 
@@ -22,9 +26,24 @@ public class CompteBean {
 	private Double montant = null; // à saisir dans virement.xhtml
 
 	private List<Compte> comptes; // à afficher sous forme de tableau (h:dataTable)
+	private List<Operations> operations; // à afficher sous forme de tableau (h:dataTable)
+	
+	private Long selectedNumCompte =null;
+	
 
+
+	public void onSelectCompte(ActionEvent event) {
+		this.setOperations(serviCompte.operationDuCompte(selectedNumCompte));
+	}
+	
 	// constructeur par défaut :
 	public CompteBean() {
+		this.setOperations(new ArrayList<Operations>());
+	
+	}
+	
+	// méthode appelée après que numClient soit automatiquement mise à jour par JSF
+	public void initComptes(ComponentSystemEvent event) {
 		this.comptes = serviCompte.comptesDuClient(numClient);
 	}
 	
@@ -39,6 +58,13 @@ public class CompteBean {
 		return suite;
 	}
 
+	public Long getSelectedNumCompte() {
+		return selectedNumCompte;
+	}
+
+	public void setSelectedNumCompte(Long selectedNumCompte) {
+		this.selectedNumCompte = selectedNumCompte;
+	}
 	public Long getNumClient() {
 		return numClient;
 	}
@@ -85,6 +111,14 @@ public class CompteBean {
 
 	public void setMontant(Double montant) {
 		this.montant = montant;
+	}
+
+	public List<Operations> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operations> operations) {
+		this.operations = operations;
 	}
 
 }

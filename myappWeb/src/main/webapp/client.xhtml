@@ -12,13 +12,17 @@
 		<h:messages class="erreur"/>
 		<!-- h:messages affiche des messages d'erreur si ils existent -->
 		<h:form>
-			Numéro Client : <h:inputText value="#{clientBean.numClient}"></h:inputText><br/>
-			Prenom : <h:inputText value="#{clientBean.client.prenom}"></h:inputText><br/>
-			Nom : <h:inputText value="#{clientBean.client.nom}"></h:inputText><br/>
-			Email : <h:inputText value="#{clientBean.client.email}"></h:inputText><br/>
-			Adresse : <h:inputText value="#{clientBean.client.adresse}"> </h:inputText><br/>
-			Téléphone : <h:inputText value="#{clientBean.client.telephone}"></h:inputText><br/>
-			<a href="comptes.jsf">Mes comptes</a>
+
+			Numéro Client : <h:outputText value="#{clientBean.client.numClient}"></h:outputText> <br/>
+			Prenom : <h:outputText value="#{clientBean.client.prenom}"></h:outputText><br/>
+			Nom : <h:outputText value="#{clientBean.client.nom}"></h:outputText><br/>
+			Email : <h:outputText value="#{clientBean.client.email}"></h:outputText><br/>
+			Adresse : <h:outputText value="#{clientBean.client.adresse}"> </h:outputText><br/>
+			Téléphone : <h:outputText value="#{clientBean.client.telephone}"></h:outputText><br/>
+			<hr/>
+			<!-- h:outputLink fabrique indirectement a href="..." -->
+			<h:outputLink value="comptes.jsf?numClient=#{clientBean.client.numClient}">Mes comptes</h:outputLink>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

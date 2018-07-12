@@ -12,19 +12,32 @@
 	<ui:define name="content">
 		<h3>VIREMENT</h3>
 		<h:form>
-			numCptDeb :  <h:selectOneListbox size="1" value="#{compteBean.numCptDeb}">
-	                    <f:selectItems var="cpt" value="#{compteBean.comptes}" 
-	                                    itemValue="#{cpt.numero}" 
-	                                    itemLabel="#{cpt.numero} - #{cpt.libelle} - #{cpt.solde}"/>
-	              </h:selectOneListbox> <br/>
-						
-			numCptCred :  <h:selectOneListbox size="1" value="#{compteBean.numCptCred}">
-	                    <f:selectItems var="cpt" value="#{compteBean.comptes}" 
-	                                    itemValue="#{cpt.numero}" 
-	                                    itemLabel="#{cpt.numero} - #{cpt.libelle} - #{cpt.solde}"/>
-	              </h:selectOneListbox> <br/>
-			montant : <h:inputText value="#{compteBean.montant}"></h:inputText><br/>
-			<h:commandButton value="VALIDER" action="#{compteBean.effectuerVirement}"></h:commandButton>
+			<h:panelGrid columns="3">
+			
+				<h:outputLabel for="idNumCptDeb"> numCptDeb :</h:outputLabel>
+				<h:selectOneListbox id="idNumCptDeb" size="1" value="#{compteBean.numCptDeb}">
+					<f:selectItems var="cpt" value="#{compteBean.comptes}"
+						itemValue="#{cpt.numero}"
+						itemLabel="#{cpt.numero} - #{cpt.libelle} - #{cpt.solde}" />
+				</h:selectOneListbox>
+				<h:message for="idNumCptDeb" class="erreur" />
+				
+				<h:outputLabel for="idNumCptCred" >numCptCred :</h:outputLabel>
+				<h:selectOneListbox id="idNumCptCred" size="1" value="#{compteBean.numCptCred}">
+							<f:selectItems var="cpt" value="#{compteBean.comptes}"
+							itemValue="#{cpt.numero}"
+							itemLabel="#{cpt.numero} - #{cpt.libelle} - #{cpt.solde}" />
+				</h:selectOneListbox> 
+				<h:message for="idNumCptCred" class="erreur" />
+			
+			montant : <h:inputText label="montant" id="idMontant" value="#{compteBean.montant}"></h:inputText>
+			<h:message for="idMontant" class="erreur"/>
+			
+			<h:outputLabel for="idBtnVirement"></h:outputLabel>
+				<h:commandButton id="idBtnVirement" value="VALIDER" action="#{compteBean.effectuerVirement}"></h:commandButton>
+			<h:outputLabel for="idBtnvirement"></h:outputLabel>
+			
+			</h:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

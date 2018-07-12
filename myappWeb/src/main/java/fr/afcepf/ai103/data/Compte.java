@@ -5,8 +5,7 @@ public class Compte {
 	private String libelle;
 	private Double solde;
 
-	
-	
+
 	@Override
 	public String toString() {
 		return "Compte [numero=" + numero + ", libelle=" + libelle + ", solde=" + solde + "]";
