@@ -1,12 +1,29 @@
 package fr.afcepf.ai103.data;
 
+import javax.persistence.Column;
+// javaxx.persistence = package de JPA
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity //entité persistante(qui va être stocké en BDD) prise en charge par JPA/Hibernate
+
+//@Table(name="Client")
 public class Client {
 
+	//@ID et @GeneratedValue va prendre en compte "numClient" car déclaré juste au-dessus
+	@Id // ientifiant (PK)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //IDENTITY convient le mieux pour les BDD récentes
+	//@Column(name="numClient")
 	private Long numClient;
+	
 	private String nom;
 	private String prenom;
 	private String email;
 	private String adresse;
+	
+	@Column(length=15) //VARCHAR de 15
 	private String telephone;
 	private String password;
 
