@@ -1,9 +1,12 @@
 package fr.afcepf.ai103.web;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import fr.afcepf.ai103.data.Client;
+import fr.afcepf.ai103.service.IServiceClient;
 import fr.afcepf.ai103.service.ServiceClient;
 
 @ManagedBean
@@ -15,9 +18,21 @@ public class ClientBean {
 	private String password; // à saisir et vérifier 
 	private String message; // à afficher
 	private Client client; // infos "client" à récupérer
-	private ServiceClient servClient = new ServiceClient();
 	
+	//private IServiceClient servClient = new ServiceClient(); ancienne version sans EJB
+	
+	@EJB // pour demander au serveur JEE de mettre à jour automatiquement la référence serviceClient en pointant vers 
+	// un ejb existant de l'application qui implémente l'interface précisée (injection de dépendance)
+	private IServiceClient serviceClient;
+	
+	public ClientBean() {
+		System.out.println("dans construceur par défaut, serviceClient =" + serviceClient);
+	}
 
+	@PostConstruct
+	public void initialisationApresInjectionDeDependance(){
+		System.out.println("dans une méthode préfixée par @PostConstruct, serviceClient =" + serviceClient);		
+	}
 	public String verifLogin() {
 		String suite = null;
 		// simuler vérification du MDP
@@ -25,7 +40,7 @@ public class ClientBean {
 			// MDP considéré comme ok si "pwd" + numClient (ex: "pwd1")
 			// on demande à naviguer vers la page client
 			suite = "client"; // .jsf (ou .jsp ou .xhtml)
-			this.client = servClient.rechercherInfosClient(numClient);
+			this.client = serviceClient.rechercherInfosClient(numClient);
 		} else {
 			message = "Mauvais logs";
 		}
@@ -64,12 +79,12 @@ public class ClientBean {
 		this.client = client;
 	}
 
-	public ServiceClient getServClient() {
-		return servClient;
+	public IServiceClient getServClient() {
+		return serviceClient;
 	}
 
-	public void setServClient(ServiceClient servClient) {
-		this.servClient = servClient;
+	public void setServClient(IServiceClient servClient) {
+		this.serviceClient = servClient;
 	}
 	
 }

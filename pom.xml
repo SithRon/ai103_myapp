@@ -21,5 +21,6 @@
 	<modules>
 		<module>myappWeb</module>
 		<module>myappCore</module>
+		<module>myappEar</module>
 	</modules>
 </project>
